@@ -37,6 +37,7 @@ class _AddScreenState extends State<AddScreen> {
   final TextEditingController _amountController = TextEditingController();
   final _formkey1 = GlobalKey<FormState>();
   final _formkey2 = GlobalKey<FormState>();
+  String? hint;
 
   @override
   void initState() {
@@ -45,6 +46,7 @@ class _AddScreenState extends State<AddScreen> {
       _dateController.text = DateFormat('yMMMMd').format(widget.model!.date);
       _amountController.text = widget.model!.amount.toString();
       transactionType = widget.model!.transactionType;
+      hint = widget.model!.categoryType;
     } else {
       transactionType = 'Income';
       currentSelectedCategory = null;
@@ -69,7 +71,7 @@ class _AddScreenState extends State<AddScreen> {
         ),
         body: Container(
           height: double.infinity,
-         color:  const Color(0xff232526),
+          color: const Color(0xff232526),
           child: Form(
             key: _formkey1,
             child: Column(
@@ -97,7 +99,7 @@ class _AddScreenState extends State<AddScreen> {
                           transactionType = newTransaction;
                           currentSelectedCategory = null;
                           widget.type == ActionType.editScreen
-                              ? widget.model!.categoryType = "Select Category"
+                              ? hint = "Select Category"
                               : currentSelectedCategory = null;
                         });
                       },
@@ -123,16 +125,12 @@ class _AddScreenState extends State<AddScreen> {
                         child: DropdownButtonFormField<String>(
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           validator: (value) {
-                            if (value == null ||
-                                value.isEmpty &&
-                                    widget.type == ActionType.addScreen) {
+                            if ((value == null || value.isEmpty) &&
+                                widget.type == ActionType.addScreen) {
                               return 'Category Type Not Selected';
-                            } else if (value.isEmpty &&
+                            } else if (hint == "Select Category" &&
                                 widget.type == ActionType.editScreen) {
-                              return widget.model!.categoryType ==
-                                      "Select Category"
-                                  ? 'Category Type Not Selected'
-                                  : null;
+                              return 'Category Type Not Selected';
                             } else {
                               return null;
                             }
@@ -157,12 +155,13 @@ class _AddScreenState extends State<AddScreen> {
                             isDense: true,
                             hintText: widget.type == ActionType.addScreen
                                 ? "Select Category"
-                                : widget.model!.categoryType,
+                                : hint,
                             hintStyle: const TextStyle(color: Colors.black),
                           ),
                           value: currentSelectedCategory,
                           isDense: true,
                           onChanged: (newCategory) {
+                            hint = newCategory;
                             setState(() {
                               currentSelectedCategory = newCategory;
                             });
@@ -278,6 +277,9 @@ class _AddScreenState extends State<AddScreen> {
                             ));
                       }
                     },
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.blue, 
+                    ),
                     child: widget.type == ActionType.addScreen
                         ? const TextsStyles(name: 'Add Transaction')
                         : const TextsStyles(name: 'Update Transaction'),

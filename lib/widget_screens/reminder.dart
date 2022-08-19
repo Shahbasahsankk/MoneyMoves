@@ -20,7 +20,7 @@ class NotificationApi {
 
   static Future init({bool initScheduled = false}) async {
     const android =
-        AndroidInitializationSettings('@drawable/launch_background');
+        AndroidInitializationSettings('@drawable/ic_stat_logo');
     const ios = IOSInitializationSettings();
     const settings = InitializationSettings(android: android, iOS: ios);
 
