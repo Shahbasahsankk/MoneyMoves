@@ -76,7 +76,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         body: Container(
           height: double.infinity.h,
           width: double.infinity.w,
-       color:  const Color(0xff232526),
+          color: const Color(0xff232526),
           child: ListView(
             padding: EdgeInsets.symmetric(vertical: 100.h),
             children: [
@@ -176,9 +176,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
               onPressed: () async {
                 text1 == 'Reset App?' ? resetApp(ctx) : deleteTransaction();
                 ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  customSnackBar(text2),
-                );
+                text2 == 'All Transaction Deleted'
+                    ? ScaffoldMessenger.of(context).showSnackBar(
+                        customSnackBar(text2),
+                      )
+                    : null;
               },
               child: const Text('Yes'),
             ),
@@ -205,7 +207,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
       );
     }
   }
-   launchGithub() async {
+
+  launchGithub() async {
     String urls = 'https://github.com/Shahbasahsankk';
     final parseurl = Uri.parse(urls);
     try {
@@ -269,7 +272,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ],
               ),
               TextsStyles(
-                name: 'v1.0.0',
+                name: 'v1.0.1',
                 fontSize: 15.sp,
               ),
               sizedboxH20,
@@ -282,11 +285,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   Navigator.pop(context);
                 },
                 child: IconButton(
-                  onPressed: () {
-                   launchGithub();
-                  },
-                  icon:  const FaIcon(FontAwesomeIcons.github )
-                ),
+                    onPressed: () {
+                      launchGithub();
+                    },
+                    icon: const FaIcon(FontAwesomeIcons.github)),
               )
             ],
           ),
@@ -318,11 +320,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 },
                 controller: timeController,
                 decoration: const InputDecoration(
-                    hintText: 'Select Time',
-                    suffixIcon: Icon(
-                      Icons.alarm,
-                      color: Colors.black,
-                    ),),
+                  hintText: 'Select Time',
+                  suffixIcon: Icon(
+                    Icons.alarm,
+                    color: Colors.black,
+                  ),
+                ),
                 readOnly: true,
                 onTap: () async {
                   TimeOfDay? pickTime = await showTimePicker(
@@ -330,16 +333,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   if (pickTime != null) {
                     if (!mounted) {}
                     String time = pickTime.format(context);
-                    setState(
-                      () {
-                        timeController.text = time;
-                        pickedTime = Time(
-                          pickTime.hour,
-                          pickTime.minute,
-                        );
-                        dateTime = pickTime;
-                      }
-                    );
+                    setState(() {
+                      timeController.text = time;
+                      pickedTime = Time(
+                        pickTime.hour,
+                        pickTime.minute,
+                      );
+                      dateTime = pickTime;
+                    });
                   }
                 },
               ),
@@ -368,13 +369,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       onPressed: () async {
                         if (!mounted) {}
                         Navigator.pop(context);
-                        setState(
-                          () {
-                            isSwitched = false;
-                            timeController.clear();
-                            labelController.clear();
-                          }
-                        );
+                        setState(() {
+                          isSwitched = false;
+                          timeController.clear();
+                          labelController.clear();
+                        });
                       },
                       child: const Text('Cancel'),
                     ),
@@ -385,19 +384,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             final sharefprefs =
                                 await SharedPreferences.getInstance();
                             sharefprefs.setBool('switch', true);
-                            setState(
-                              () {
-                                NotificationApi().showScheduledNotification(
-                                  title: 'Notification',
-                                  body: labelController.text,
-                                  payload: '',
-                                  scheduledDateTime: pickedTime,
-                                );
+                            setState(() {
+                              NotificationApi().showScheduledNotification(
+                                title: 'Notification',
+                                body: labelController.text,
+                                payload: '',
+                                scheduledDateTime: pickedTime,
+                              );
 
-                                timeController.clear();
-                                labelController.clear();
-                              }
-                            );
+                              timeController.clear();
+                              labelController.clear();
+                            });
                             if (!mounted) {}
                             Navigator.pop(context);
                             ScaffoldMessenger.of(context).showSnackBar(

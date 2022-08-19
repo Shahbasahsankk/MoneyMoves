@@ -48,7 +48,7 @@ class IncomeExpense extends StatelessWidget {
                   children: [
                     Text(
                       text,
-                      style:  TextStyle(
+                      style: TextStyle(
                         fontSize: 22.sp,
                         color: Colors.black,
                       ),
@@ -58,7 +58,9 @@ class IncomeExpense extends StatelessWidget {
               )
             ],
           ),
-         SizedBox(height: 5.h,),
+          SizedBox(
+            height: 5.h,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -68,13 +70,12 @@ class IncomeExpense extends StatelessWidget {
                   fontSize: 25.sp,
                   color: color,
                   fontWeight: FontWeight.bold,
-                
                 ),
               ),
               FittedBox(
                 child: Text(
                   value,
-                  style:  TextStyle(
+                  style: TextStyle(
                     fontSize: 26.sp,
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
@@ -100,7 +101,7 @@ class SidebarMenu extends StatelessWidget {
       child: ListView(
         padding: padding,
         children: [
-           SizedBox(
+          SizedBox(
             height: 150.h,
           ),
           buildMenuItem(
@@ -216,7 +217,8 @@ class SidebarMenu extends StatelessWidget {
         );
         break;
       case 4:
-        Share.share('Money Mangement App');
+        Share.share(
+            'MoneyMoves: Finance Manager, Expense and Income Tracker,https://play.google.com/store/apps/details?id=in.moneymoves.project');
         break;
     }
   }

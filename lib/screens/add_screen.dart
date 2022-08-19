@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
-import 'package:project/Screens/home_screen.dart';
 import 'package:project/db/category_db/category_db.dart';
 import 'package:project/models/category_model/category_model.dart';
 import 'package:project/models/transaction_model/transaction_model.dart';
+import 'package:project/screens/home_screen.dart';
 import 'package:project/utilities/sizedbox_color_etc.dart';
 import 'package:project/widget_screens/add_screen_widgets.dart';
 
@@ -270,15 +270,16 @@ class _AddScreenState extends State<AddScreen> {
                               ? 'Transaction Added'
                               : 'Transaction Updated'),
                         );
-                        Navigator.pushReplacement(
+                        Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
                               builder: ((context) => const HomeScreen()),
-                            ));
+                            ),
+                            (route) => false);
                       }
                     },
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.blue, 
+                      primary: Colors.blue,
                     ),
                     child: widget.type == ActionType.addScreen
                         ? const TextsStyles(name: 'Add Transaction')
