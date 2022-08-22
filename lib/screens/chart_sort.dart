@@ -35,3 +35,29 @@ List<ChartData> returnData=[];
  return returnData;
 
 }
+overViewChartLogic(List<TransactionModel>list){
+int value;
+String transactionName;
+List visited=[];
+List<ChartData> returnData=[];  
+
+  for(var i=0;i<list.length;i++){
+    visited.add(0);
+  }
+
+  for( var i=0;i<list.length;i++){
+    value=list[i].amount.toInt();
+    transactionName=list[i].transactionType;
+    for(var j=i+1;j<list.length;j++){
+      if(transactionName==list[j].transactionType){
+        value+=list[j].amount.toInt();
+        visited[j]=-1;
+      }
+    }
+    if(visited[i]!=-1){
+      returnData.add(ChartData(value, transactionName));
+    }
+  }
+ return returnData;
+
+}

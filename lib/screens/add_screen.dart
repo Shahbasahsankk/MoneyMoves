@@ -24,8 +24,7 @@ class AddScreen extends StatefulWidget {
 }
 
 String? currentSelectedCategory;
-final padding =
-    EdgeInsets.only(left: 20.w, right: 20.w, top: 14.h, bottom: 14.h);
+final padding = EdgeInsets.only(left: 20.w, right: 20.w, top: 9.h, bottom: 9.h);
 
 class _AddScreenState extends State<AddScreen> {
   CategoryModel? category;
@@ -156,7 +155,11 @@ class _AddScreenState extends State<AddScreen> {
                             hintText: widget.type == ActionType.addScreen
                                 ? "Select Category"
                                 : hint,
-                            hintStyle: const TextStyle(color: Colors.black),
+                            hintStyle: TextStyle(
+                              color: widget.type == ActionType.addScreen
+                                  ? Colors.grey
+                                  : Colors.black,
+                            ),
                           ),
                           value: currentSelectedCategory,
                           isDense: true,
@@ -203,7 +206,7 @@ class _AddScreenState extends State<AddScreen> {
                     }
                   },
                   controller: _amountController,
-                  hintText: 'Amount Not Selected',
+                  hintText: 'Type Amount',
                   keyboardType: TextInputType.number,
                 ),
                 AddDetails(

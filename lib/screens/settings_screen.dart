@@ -37,7 +37,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   bool isSwitched = false;
   TimeOfDay dateTime = TimeOfDay.now();
   final String info =
-      'MONEY MOVES is simply a Money Management Application developed by SHAHBAS, one of the intern in Brototype. This application have a simple and stylish UI and a little features such as adding of your income and expense transactions according to the categories, having a clear graphical overview of your income and expenses, you can examine the transactions through filterations like today, year, last 28 days wises, setting reminders according to your time and being notifies on time, search option is also provided.';
+      'MONEYMOVES is simply a Money Management Application developed by SHAHBAS, one of the intern in Brototype. This application have a simple and stylish UI and a little features such as adding of your income and expense transactions according to the categories, having a clear graphical overview of your income and expenses, you can examine the transactions through filterations like today, year, last 28 days wises, setting reminders according to your time and being notifies on time, search option is also provided.';
 
   @override
   void initState() {
@@ -272,7 +272,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ],
               ),
               TextsStyles(
-                name: 'v1.0.1',
+                name: 'v 1.0.2',
                 fontSize: 15.sp,
               ),
               sizedboxH20,
@@ -285,10 +285,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   Navigator.pop(context);
                 },
                 child: IconButton(
-                    onPressed: () {
-                      launchGithub();
-                    },
-                    icon: const FaIcon(FontAwesomeIcons.github)),
+                  onPressed: () {
+                    launchGithub();
+                  },
+                  icon:
+                   const FaIcon(
+                    FontAwesomeIcons.github,
+                    color: Colors.black,
+                  ),
+                ),
               )
             ],
           ),

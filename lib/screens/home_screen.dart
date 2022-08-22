@@ -118,11 +118,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                     Widget? child) {
                                   return FittedBox(
                                     child: TextsStyles(
-                                      name: '${value.round()}',
+                                      name: '${value.round().abs()}',
                                       fontSize: 35.sp,
                                       fontWeight: FontWeight.bold,
                                       color:
-                                          value >= 0 ? Colors.black : Colors.red,
+                                          Colors.black ,
                                     ),
                                   );
                                 }),

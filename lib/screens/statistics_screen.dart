@@ -65,185 +65,190 @@ class _StatisticsScreenState extends State<StatisticsScreen>
           height: double.infinity.h,
           width: double.infinity.w,
           color: const Color(0xff232526),
-          child: Column(
-            children: [
-              const SizedBox(height: 70,),
-              Flexible(
-                child: TabBar(
-                  controller: tabController,
-                  indicatorColor: Colors.transparent,
-                  indicator: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(20.r),
+          child: Padding(
+            padding: EdgeInsets.only(
+                left: 10.w, right: 10.w, top: 10.h, bottom: 10.h),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 70.h,
+                ),
+                Flexible(
+                  child: TabBar(
+                    controller: tabController,
+                    indicatorColor: Colors.transparent,
+                    indicator: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(20.r),
+                    ),
+                    tabs: const [
+                      Tab(
+                        child: TextsStyles(
+                          name: 'Overview',
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Tab(
+                        child: TextsStyles(
+                          name: 'Income',
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Tab(
+                        child: TextsStyles(
+                          name: 'Expense',
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
                   ),
-                  tabs: const [
-                    Tab(
-                      child: TextsStyles(
-                        name: 'Overview',
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Tab(
-                      child: TextsStyles(
-                        name: 'Income',
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Tab(
-                      child: TextsStyles(
-                        name: 'Expense',
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
                 ),
-              ),
-              sizedboxH20,
-              Expanded(
-                flex: 2,
-                child: TabBarView(
-                  controller: tabController,
-                  children: [
-                    chartLogic(allData).isNotEmpty
-                        ? SfCircularChart(
-                            legend: Legend(
-                              textStyle: const TextStyle(
-                                color: Colors.white,
+                sizedboxH20,
+                Expanded(
+                  flex: 2,
+                  child: TabBarView(
+                    controller: tabController,
+                    children: [
+                      overViewChartLogic(allData).isNotEmpty
+                          ? SfCircularChart(
+                              legend: Legend(
+                                textStyle: const TextStyle(
+                                  color: Colors.white,
+                                ),
+                                isResponsive: true,
+                                isVisible: true,
                               ),
-                              isResponsive: true,
-                              isVisible: true,
-                            ),
-                            series: <CircularSeries>[
-                              PieSeries<ChartData, String>(
-                                dataSource: chartLogic(allData),
-                                xValueMapper: (ChartData data, _) =>
-                                    data.categoryName,
-                                yValueMapper: (ChartData data, _) =>
-                                    data.amount,
-                                explode: true,
-                                legendIconType: LegendIconType.diamond,
-                                dataLabelSettings: const DataLabelSettings(
-                                  color: Colors.white,
-                                  isVisible: true,
-                                ),
-                              )
-                            ],
-                          )
-                        : Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                 Image(
-                                  height: 200.h,
-                                  width: 200.w,
-                                  image: const AssetImage(
-                                      'lib/assets/no data images/empty_chart.png'),
-                                ),
-                                TextsStyles(
-                                  name: 'SORRY. NO DATA FOUND.',
-                                  fontSize: 25.sp,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
+                              series: <CircularSeries>[
+                                PieSeries<ChartData, String>(
+                                  dataSource: overViewChartLogic(allData),
+                                  xValueMapper: (ChartData data, _) =>
+                                      data.categoryName,
+                                  yValueMapper: (ChartData data, _) =>
+                                      data.amount,
+                                  explode: true,
+                                  legendIconType: LegendIconType.diamond,
+                                  dataLabelSettings: const DataLabelSettings(
+                                    color: Colors.white,
+                                    isVisible: true,
+                                  ),
+                                )
                               ],
-                            ),
-                          ),
-                    chartLogic(incomeData).isNotEmpty
-                        ? SfCircularChart(
-                            legend: Legend(
-                              textStyle: const TextStyle(
-                                color: Colors.white,
+                            )
+                          : Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image(
+                                    height: 200.h,
+                                    width: 200.w,
+                                    image: const AssetImage(
+                                        'lib/assets/no data images/empty_chart.png'),
+                                  ),
+                                  TextsStyles(
+                                    name: 'SORRY. NO DATA FOUND.',
+                                    fontSize: 25.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                ],
                               ),
-                              isResponsive: true,
-                              isVisible: true,
                             ),
-                            series: <CircularSeries>[
-                              PieSeries<ChartData, String>(
-                                dataSource: chartLogic(incomeData),
-                                xValueMapper: (ChartData data, _) =>
-                                    data.categoryName,
-                                yValueMapper: (ChartData data, _) =>
-                                    data.amount,
-                                explode: true,
-                                legendIconType: LegendIconType.diamond,
-                                dataLabelSettings: const DataLabelSettings(
-                                  color: Colors.white,
-                                  isVisible: true,
-                                ),
-                              )
-                            ],
-                          )
-                        : Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                 Image(
-                                 height: 200.h,
-                                  width: 200.w,
-                                  image: const AssetImage(
-                                      'lib/assets/no data images/empty_chart.png'),
-                                ),
-                                TextsStyles(
-                                  name: 'SORRY. NO DATA FOUND.',
-                                  fontSize: 25.sp,
-                                  fontWeight: FontWeight.bold,
+                      chartLogic(incomeData).isNotEmpty
+                          ? SfCircularChart(
+                              legend: Legend(
+                                textStyle: const TextStyle(
                                   color: Colors.white,
                                 ),
-                              ],
-                            ),
-                          ),
-                    chartLogic(expenseData).isNotEmpty
-                        ? SfCircularChart(
-                            legend: Legend(
-                              textStyle: const TextStyle(
-                                color: Colors.white,
+                                isResponsive: true,
+                                isVisible: true,
                               ),
-                              isResponsive: true,
-                              isVisible: true,
-                            ),
-                            series: <CircularSeries>[
-                              PieSeries<ChartData, String>(
-                                dataSource: chartLogic(expenseData),
-                                xValueMapper: (ChartData data, _) =>
-                                    data.categoryName,
-                                yValueMapper: (ChartData data, _) =>
-                                    data.amount,
-                                explode: true,
-                                legendIconType: LegendIconType.diamond,
-                                dataLabelSettings: const DataLabelSettings(
-                                  color: Colors.white,
-                                  isVisible: true,
-                                ),
-                              )
-                            ],
-                          )
-                        : Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                 Image(
-                                 height: 200.h,
-                                  width: 200.w,
-                                  image: const AssetImage(
-                                      'lib/assets/no data images/empty_chart.png'),
-                                ),
-                                TextsStyles(
-                                  name: 'SORRY. NO DATA FOUND.',
-                                  fontSize: 25.sp,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
+                              series: <CircularSeries>[
+                                PieSeries<ChartData, String>(
+                                  dataSource: chartLogic(incomeData),
+                                  xValueMapper: (ChartData data, _) =>
+                                      data.categoryName,
+                                  yValueMapper: (ChartData data, _) =>
+                                      data.amount,
+                                  explode: true,
+                                  legendIconType: LegendIconType.diamond,
+                                  dataLabelSettings: const DataLabelSettings(
+                                    color: Colors.white,
+                                    isVisible: true,
+                                  ),
+                                )
                               ],
+                            )
+                          : Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image(
+                                    height: 200.h,
+                                    width: 200.w,
+                                    image: const AssetImage(
+                                        'lib/assets/no data images/empty_chart.png'),
+                                  ),
+                                  TextsStyles(
+                                    name: 'SORRY. NO DATA FOUND.',
+                                    fontSize: 25.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                  ],
-                ),
-              )
-            ],
+                      chartLogic(expenseData).isNotEmpty
+                          ? SfCircularChart(
+                              legend: Legend(
+                                textStyle: const TextStyle(
+                                  color: Colors.white,
+                                ),
+                                isResponsive: true,
+                                isVisible: true,
+                              ),
+                              series: <CircularSeries>[
+                                PieSeries<ChartData, String>(
+                                  dataSource: chartLogic(expenseData),
+                                  xValueMapper: (ChartData data, _) =>
+                                      data.categoryName,
+                                  yValueMapper: (ChartData data, _) =>
+                                      data.amount,
+                                  explode: true,
+                                  legendIconType: LegendIconType.diamond,
+                                  dataLabelSettings: const DataLabelSettings(
+                                    color: Colors.white,
+                                    isVisible: true,
+                                  ),
+                                )
+                              ],
+                            )
+                          : Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image(
+                                    height: 200.h,
+                                    width: 200.w,
+                                    image: const AssetImage(
+                                        'lib/assets/no data images/empty_chart.png'),
+                                  ),
+                                  TextsStyles(
+                                    name: 'SORRY. NO DATA FOUND.',
+                                    fontSize: 25.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                ],
+                              ),
+                            ),
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
     );
   }
-
 }
