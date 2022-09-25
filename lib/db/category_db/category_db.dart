@@ -1,14 +1,11 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:hive/hive.dart';
+import 'package:project/controllers/add_category/add_category_controller.dart';
 import 'package:project/models/category_model/category_model.dart';
+import 'package:provider/provider.dart';
 
 class CategoryDbFunction {
   static const String categoryDbName = 'DB_Category';
-  static final ValueNotifier<List<CategoryModel>> incomeModelNotifier =
-      ValueNotifier([]);
-  static final ValueNotifier<List<CategoryModel>> expenseModelNotifier =
-      ValueNotifier([]);
-
   CategoryDbFunction._instance();
   static CategoryDbFunction instance = CategoryDbFunction._instance();
 
@@ -16,10 +13,10 @@ class CategoryDbFunction {
     return instance;
   }
 
-  Future<void> addCategory(CategoryModel categoryModel) async {
+  Future<void> addCategory(CategoryModel categoryModel,context) async {
     final categoryDB = await Hive.openBox<CategoryModel>(categoryDbName);
     await categoryDB.put(categoryModel.id, categoryModel);
-    refreshUI();
+    refreshUI(context);
   }
 
   Future<List<CategoryModel>> getAllCategories() async {
@@ -27,27 +24,26 @@ class CategoryDbFunction {
     return categoryDB.values.toList();
   }
 
-  Future<void> refreshUI() async {
+  Future<void> refreshUI(context) async {
+    final provider= Provider.of<AddCategoryProvider>(context,listen:false);
     final getAllCategory = await getAllCategories();
-    incomeModelNotifier.value.clear();
-    expenseModelNotifier.value.clear();
+    provider.incomeModelList.clear();
+    provider.expenseModelList.clear();
     await Future.forEach(
       getAllCategory,
       (CategoryModel category) {
         if (category.type == CategoryType.income) {
-          incomeModelNotifier.value.add(category);
+          provider.incomeModelList.add(category);
         } else if (category.type == CategoryType.expense) {
-          expenseModelNotifier.value.add(category);
+          provider.expenseModelList.add(category);
         }
       },
     );
-    incomeModelNotifier.notifyListeners();
-    expenseModelNotifier.notifyListeners();
   }
 
-  Future<void> deleteCategory(String key) async {
+  Future<void> deleteCategory(String key,context) async {
     final categoryDB = await Hive.openBox<CategoryModel>(categoryDbName);
     await categoryDB.delete(key);
-    refreshUI();
+    refreshUI(context);
   }
 }
