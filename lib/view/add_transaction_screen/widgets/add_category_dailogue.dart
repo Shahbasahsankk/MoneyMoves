@@ -46,19 +46,19 @@ class CategoryAdd extends StatelessWidget {
           children: [
             TextButton(
               onPressed: () {
-                categoryProvider.categoryController.clear();
                 Navigator.pop(context);
+                categoryProvider.categoryController.clear();
               },
               child: const Text('Cancel'),
             ),
             TextButton(
               onPressed: () async {
-                transactionProvider.newCategoryAdding(
+                await transactionProvider.newCategoryAdding(
                   context,
                   categoryProvider.categoryController.text,
+                  categoryProvider.categoryController,
                 );
                 await categoryProvider.refresh(context);
-                categoryProvider.categoryController.clear();
               },
               child: const Text('Add'),
             )

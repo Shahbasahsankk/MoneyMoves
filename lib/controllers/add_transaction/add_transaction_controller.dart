@@ -156,7 +156,11 @@ class AddTransactionProvider with ChangeNotifier {
     }
   }
 
-  newCategoryAdding(context, text) async {
+  newCategoryAdding(
+    context,
+    text,
+    TextEditingController categoryController,
+  ) async {
     if (formkey2.currentState!.validate()) {
       final category = CategoryModel(
         id: DateTime.now().microsecondsSinceEpoch.toString(),
@@ -167,6 +171,7 @@ class AddTransactionProvider with ChangeNotifier {
       );
       await CategoryDbFunction.instance.addCategory(category, context);
       Navigator.pop(context);
+      categoryController.clear();
       ScaffoldMessenger.of(context).showSnackBar(
         customSnackBar('Category Added'),
       );
