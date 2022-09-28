@@ -56,8 +56,9 @@ class AddReminder extends StatelessWidget {
                 ),
                 const Spacer(),
                 TextButton(
-                  onPressed: () => provider.notificationSetter(
-                      formkey.currentState!, context),
+                  onPressed: () async {
+                    provider.notificationSetter(formkey.currentState!, context);
+                  },
                   child: const Text('Save Reminder'),
                 )
               ],

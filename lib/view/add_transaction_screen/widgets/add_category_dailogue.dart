@@ -5,8 +5,9 @@ import 'package:project/controllers/add_transaction/add_transaction_controller.d
 import 'package:provider/provider.dart';
 
 class CategoryAdd extends StatelessWidget {
-  const CategoryAdd({super.key, required this.formkey2});
-  final dynamic formkey2;
+  const CategoryAdd({
+    super.key,
+  });
   @override
   Widget build(BuildContext context) {
     final categoryProvider =
@@ -20,26 +21,24 @@ class CategoryAdd extends StatelessWidget {
         Padding(
           padding: EdgeInsets.only(left: 23.w, right: 23.w),
           child: Form(
-            key: formkey2,
-            child: Consumer<AddTransactionProvider>(
-              builder: (context,values,_) {
-                return TextFormField(
-                  textCapitalization: TextCapitalization.words,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  validator: (value) => transactionProvider.newCategoryValidation(
-                    value,
-                    categoryProvider.incomeModelList,
-                    categoryProvider.expenseModelList,
-                    values.categoryController.text,
-                  ),
-                  maxLength: 10,
-                  controller: categoryProvider.categoryController,
-                  decoration: const InputDecoration(
-                    labelText: 'Enter new Category',
-                  ),
-                );
-              }
-            ),
+            key: transactionProvider.formkey2,
+            child: Consumer2<AddCategoryProvider, AddTransactionProvider>(
+                builder: (context, categoryValues, transactionValues, _) {
+              return TextFormField(
+                textCapitalization: TextCapitalization.words,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                validator: (value) => transactionValues.newCategoryValidation(
+                  value,
+                  categoryValues.incomeModelList,
+                  categoryValues.expenseModelList,
+                  categoryValues.categoryController.text,
+                ),
+                controller: categoryValues.categoryController,
+                decoration: const InputDecoration(
+                  labelText: 'Enter new Category',
+                ),
+              );
+            }),
           ),
         ),
         Row(
@@ -53,11 +52,14 @@ class CategoryAdd extends StatelessWidget {
               child: const Text('Cancel'),
             ),
             TextButton(
-              onPressed: () => transactionProvider.newCategoryAdding(
-                formkey2.currentState!,
-                categoryProvider.categoryController.text,
-                context,
-              ),
+              onPressed: () async {
+                transactionProvider.newCategoryAdding(
+                  context,
+                  categoryProvider.categoryController.text,
+                );
+                await categoryProvider.refresh(context);
+                categoryProvider.categoryController.clear();
+              },
               child: const Text('Add'),
             )
           ],

@@ -16,7 +16,7 @@ import '../../db/transaction_db/transaction_db.dart';
 import '../../models/category_model/category_model.dart';
 import '../../models/transaction_model/transaction_model.dart';
 import '../../view/splash_screen/splash_screen.dart';
-import '../../widget_screens/reminder.dart';
+import '../reminder/reminder.dart';
 
 class SettingsProvider with ChangeNotifier {
   late Time pickedTime;
@@ -73,6 +73,7 @@ class SettingsProvider with ChangeNotifier {
     isSwitched = false;
     timeController.clear();
     labelController.clear();
+    notifyListeners();
   }
 
   notificationSetter(currentState, context) async {
@@ -91,18 +92,20 @@ class SettingsProvider with ChangeNotifier {
       ScaffoldMessenger.of(context).showSnackBar(
         customSnackBar('Reminder Added'),
       );
+      await getSwitchBool();
     }
   }
 
   void toggelOnOff(value, context, formKey) async {
-    isSwitched = value;
-    if (isSwitched == true) {
+    if (value == true) {
       addReminder(context, formKey);
     } else {
       NotificationApi.cancelNotification();
       final share = await SharedPreferences.getInstance();
       share.remove('switch');
+      getSwitchBool();
     }
+    notifyListeners();
   }
 
   launchEmail() async {
@@ -137,6 +140,7 @@ class SettingsProvider with ChangeNotifier {
     } else {
       isSwitched = false;
     }
+    notifyListeners();
   }
 
   deleteTransaction(context) async {

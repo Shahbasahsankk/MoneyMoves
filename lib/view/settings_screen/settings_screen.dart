@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:project/controllers/settings/settings_controller.dart';
 import 'package:project/constants/sizedbox_color_etc.dart';
 import 'package:project/view/settings_screen/widgets/settings_item.dart';
-import 'package:project/widget_screens/reminder.dart';
+import 'package:project/controllers/reminder/reminder.dart';
 import 'package:provider/provider.dart';
 
 import '../../controllers/navigation/sidebar_controller.dart';
@@ -18,8 +18,8 @@ class SettingsScreen extends StatelessWidget {
     final navigationProvider =
         Provider.of<NavigationProvider>(context, listen: false);
     final provider = Provider.of<SettingsProvider>(context, listen: false);
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      provider.getSwitchBool();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await provider.getSwitchBool();
       NotificationApi.init(initScheduled: true);
     });
     return SafeArea(

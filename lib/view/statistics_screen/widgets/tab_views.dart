@@ -9,11 +9,14 @@ import '../../../models/statistics/chart_model.dart';
 import '../../../models/transaction_model/transaction_model.dart';
 
 class OverViewTabView extends StatelessWidget {
-  const OverViewTabView({super.key, required this.list});
+  const OverViewTabView({
+    super.key,
+    required this.list,
+  });
   final List<TransactionModel> list;
   @override
   Widget build(BuildContext context) {
-    final provider= Provider.of<StatisticsProvider>(context,listen: false);
+    final provider = Provider.of<StatisticsProvider>(context, listen: false);
     return provider.overViewChartLogic(list).isNotEmpty
         ? SfCircularChart(
             legend: Legend(

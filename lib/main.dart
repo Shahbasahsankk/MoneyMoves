@@ -11,7 +11,7 @@ import 'package:project/controllers/statistics/statistics_controller.dart';
 import 'package:project/controllers/transaction/transaction_controller.dart';
 import 'package:project/controllers/welcome/welcome_controllers.dart';
 import 'package:project/view/splash_screen/splash_screen.dart';
-import 'package:project/widget_screens/reminder.dart';
+import 'package:project/controllers/reminder/reminder.dart';
 import 'package:provider/provider.dart';
 
 import 'controllers/navigation/sidebar_controller.dart';

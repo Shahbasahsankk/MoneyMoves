@@ -17,6 +17,14 @@ class TransactionProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void initialDataSetting(List<TransactionModel> allTransactionList) async {
+    allData = allTransactionList;
+    founData = allData;
+    currentCategory = 'All';
+    currentTransaction = 'All';
+    notifyListeners();
+  }
+
   void transactionChange(selectedTransaction) {
     currentTransaction = selectedTransaction;
     filter();
@@ -99,10 +107,12 @@ class TransactionProvider with ChangeNotifier {
       search = true;
     } else {
       search = false;
+      searchFilter('');
     }
+    notifyListeners();
   }
 
-  void searchFilter(searchKey) {
+  void searchFilter(String searchKey) {
     if (searchKey.isEmpty) {
       results = allData;
     } else {

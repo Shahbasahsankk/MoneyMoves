@@ -9,7 +9,6 @@ import 'package:provider/provider.dart';
 
 import '../sidabar_menu/sidebar_drawer.dart';
 
-
 // ignore: must_be_immutable
 class AddCategoryScreen extends StatelessWidget {
   AddCategoryScreen({Key? key}) : super(key: key);
@@ -25,7 +24,6 @@ class AddCategoryScreen extends StatelessWidget {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       provider.refresh(context);
     });
-
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,

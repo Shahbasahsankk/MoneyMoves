@@ -13,8 +13,8 @@ class AddCategoryProvider with ChangeNotifier {
   final List<CategoryModel> incomeModelList = [];
   final List<CategoryModel> expenseModelList = [];
   List<CategoryModel> modelList = [];
-  refresh(context) {
-    CategoryDbFunction().refreshUI(context);
+  refresh(context) async {
+    await CategoryDbFunction().refreshUI(context);
     notifyListeners();
   }
 

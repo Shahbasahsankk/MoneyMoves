@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../add_screen.dart';
+import '../../../constants/sizedbox_color_etc.dart';
 
 // ignore: must_be_immutable
 class AddDetails extends StatelessWidget {

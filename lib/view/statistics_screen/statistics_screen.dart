@@ -26,10 +26,11 @@ class StatisticsScreen extends StatelessWidget {
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       await homeProvider.refresh(context);
-      provider.allData = homeProvider.allTransactionList;
-      provider.incomeData = homeProvider.allIncomeTransactionList;
-      provider.expenseData = homeProvider.allExpenseTransactionList;
-      provider.founData = provider.allData;
+      await provider.loadData(
+        homeProvider.allTransactionList,
+        homeProvider.allIncomeTransactionList,
+        homeProvider.allExpenseTransactionList,
+      );
     });
     return SafeArea(
       child: Scaffold(
@@ -75,13 +76,18 @@ class StatisticsScreen extends StatelessWidget {
                   sizedboxH20,
                   Expanded(
                     flex: 2,
-                    child: TabBarView(
-                      controller: tabController,
-                      children: [
-                        OverViewTabView(list: provider.allData),
-                        IncomeExpenseTabView(list: provider.incomeData),
-                        IncomeExpenseTabView(list: provider.expenseData),
-                      ],
+                    child: Consumer(
+                      builder: (BuildContext context, StatisticsProvider value,
+                          Widget? child) {
+                        return TabBarView(
+                          controller: tabController,
+                          children: [
+                            OverViewTabView(list: value.allData),
+                            IncomeExpenseTabView(list: value.incomeData),
+                            IncomeExpenseTabView(list: value.expenseData),
+                          ],
+                        );
+                      },
                     ),
                   )
                 ],

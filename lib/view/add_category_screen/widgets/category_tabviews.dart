@@ -36,6 +36,7 @@ class CategoryTabViews extends StatelessWidget {
             padding:
                 EdgeInsets.only(left: 8.w, right: 8.w, top: 8.h, bottom: 8.h),
             child: GridView.builder(
+              shrinkWrap: true,
               padding: EdgeInsets.zero,
               itemCount: list.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

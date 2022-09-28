@@ -13,7 +13,7 @@ class IncomeExpenseTabView extends StatelessWidget {
   final List<TransactionModel> list;
   @override
   Widget build(BuildContext context) {
-    final provider= Provider.of<StatisticsProvider>(context,listen: false);
+    final provider = Provider.of<StatisticsProvider>(context, listen: false);
     return provider.chartLogic(list).isNotEmpty
         ? SfCircularChart(
             legend: Legend(

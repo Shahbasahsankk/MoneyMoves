@@ -4,12 +4,21 @@ import 'package:project/models/statistics/chart_model.dart';
 import '../../models/transaction_model/transaction_model.dart';
 
 class StatisticsProvider with ChangeNotifier {
-  List<TransactionModel> founData = [];
   List<TransactionModel> allData = [];
   List<TransactionModel> incomeData = [];
   List<TransactionModel> expenseData = [];
+  List<TransactionModel> founData = [];
 
-  chartLogic(List<TransactionModel> list) {
+  loadData(List<TransactionModel> allList, List<TransactionModel> incomeList,
+      List<TransactionModel> expenseList) {
+    allData = allList;
+    incomeData = incomeList;
+    expenseData = expenseList;
+    founData = allData;
+    notifyListeners();
+  }
+
+  List<ChartData> chartLogic(List<TransactionModel> list) {
     List visited = [];
     List<ChartData> returnData = [];
     int value;
@@ -33,7 +42,7 @@ class StatisticsProvider with ChangeNotifier {
     return returnData;
   }
 
-  overViewChartLogic(List<TransactionModel> list) {
+  List<ChartData> overViewChartLogic(List<TransactionModel> list) {
     List visited = [];
     List<ChartData> returnData = [];
     int value;

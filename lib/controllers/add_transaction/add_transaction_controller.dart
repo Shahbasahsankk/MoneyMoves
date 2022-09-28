@@ -4,38 +4,37 @@ import 'package:intl/intl.dart';
 import '../../constants/sizedbox_color_etc.dart';
 import '../../db/category_db/category_db.dart';
 import '../../db/transaction_db/transaction_db.dart';
+import '../../models/action_type_enum/action_type_enum_model.dart';
 import '../../models/category_model/category_model.dart';
 import '../../models/transaction_model/transaction_model.dart';
-import '../../view/add_transaction_screen/add_screen.dart';
 import '../../view/add_transaction_screen/widgets/add_category_dailogue.dart';
 import '../../view/home_screen/home_screen.dart';
 
 class AddTransactionProvider with ChangeNotifier {
   CategoryModel? category;
-  String? transactionType;
+  String transactionType = 'Income';
   String? hint;
   DateTime date = DateTime.now();
   DateTime? pickedDate;
   String? currentSelectedCategory;
   String? name;
   final TextEditingController dateController = TextEditingController();
-  final TextEditingController categoryController = TextEditingController();
   final TextEditingController amountController = TextEditingController();
+  final formkey2 = GlobalKey<FormState>();
+  final formkey1 = GlobalKey<FormState>();
 
-  screenCheck(type, model) {
+  screenCheck(type, TransactionModel? model) {
     if (type == ActionType.editScreen) {
       currentSelectedCategory = null;
       dateController.text = DateFormat('yMMMMd').format(model!.date);
-      amountController.text = model!.amount.toString();
-      transactionType = model!.transactionType;
-      hint = model!.categoryType;
-      notifyListeners();
+      amountController.text = model.amount.toString();
+      transactionType = model.transactionType;
+      hint = model.categoryType;
     } else {
-      transactionType = 'Income';
       currentSelectedCategory = null;
       dateController.clear();
       amountController.clear();
-      notifyListeners();
+      transactionType = 'Income';
     }
     notifyListeners();
   }
@@ -49,7 +48,7 @@ class AddTransactionProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  categoryValidation(value, type) {
+  categoryValidation(String? value, type) {
     if ((value == null || value.isEmpty) && type == ActionType.addScreen) {
       return 'Category Type Not Selected';
     } else if (hint == "Select Category" && type == ActionType.editScreen) {
@@ -59,7 +58,7 @@ class AddTransactionProvider with ChangeNotifier {
     }
   }
 
-  amountValidation(value) {
+  amountValidation(String? value) {
     if (value == null || value.isEmpty) {
       return 'Enter An Amount';
     } else {
@@ -67,7 +66,7 @@ class AddTransactionProvider with ChangeNotifier {
     }
   }
 
-  dateValidation(value) {
+  dateValidation(String? value) {
     if (value == null || value.isEmpty) {
       return 'Date Not Selected';
     } else {
@@ -88,7 +87,7 @@ class AddTransactionProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  transactionAddOrUpdate(type, model, formkey1, context) async {
+  transactionAddOrUpdate(type, TransactionModel? model, context) async {
     if (currentSelectedCategory == null && type == ActionType.editScreen) {
       name = model!.categoryType;
     } else if (currentSelectedCategory != null &&
@@ -100,7 +99,7 @@ class AddTransactionProvider with ChangeNotifier {
       pickedDate ??= model!.date;
       final transaction = TransactionModel(
         id: DateTime.now().microsecondsSinceEpoch.toString(),
-        transactionType: transactionType!,
+        transactionType: transactionType,
         categoryType: type == ActionType.editScreen ? name! : category!.name,
         amount: value!,
         date: pickedDate!,
@@ -125,50 +124,49 @@ class AddTransactionProvider with ChangeNotifier {
     }
   }
 
-  addCategory(context, formkey2) async {
+  addCategory(context) async {
     showDialog(
       context: context,
       builder: (context) {
-        return CategoryAdd(formkey2: formkey2);
+        return const CategoryAdd();
       },
     );
   }
 
-  newCategoryValidation(
-      value, incomeModelList, expenseModelList, controllerText) {
+  newCategoryValidation(value, List<CategoryModel> incomeModelList,
+      List<CategoryModel> expenseModelList, String text) {
+    if (value == '' || value == null) {
+      return 'Not Filled';
+    }
     if (transactionType == 'Income') {
       final income =
           incomeModelList.map((e) => e.name.trim().toLowerCase()).toList();
-      if (income.contains(controllerText.trim().toLowerCase())) {
+      if (income.contains(text.trim().toLowerCase())) {
         return 'Category Already Exists';
       }
     }
     if (transactionType == 'Expense') {
       final expense =
           expenseModelList.map((e) => e.name.trim().toLowerCase()).toList();
-      if (expense.contains(controllerText.trim().toLowerCase())) {
+      if (expense.contains(text.trim().toLowerCase())) {
         return 'Category Already Exists';
       }
-    }
-    if (value == '' || value == null) {
-      return 'Not Filled';
     } else {
       return null;
     }
   }
 
-  newCategoryAdding(currentState, categoryControllerText, context) async {
-    if (currentState.validate()) {
+  newCategoryAdding(context, text) async {
+    if (formkey2.currentState!.validate()) {
       final category = CategoryModel(
         id: DateTime.now().microsecondsSinceEpoch.toString(),
         type: transactionType == 'Income'
             ? CategoryType.income
             : CategoryType.expense,
-        name: categoryControllerText,
+        name: text,
       );
       await CategoryDbFunction.instance.addCategory(category, context);
       Navigator.pop(context);
-      categoryControllerText.clear();
       ScaffoldMessenger.of(context).showSnackBar(
         customSnackBar('Category Added'),
       );
