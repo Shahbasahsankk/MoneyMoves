@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:project/constants/text_widget.dart';
 import 'package:project/controllers/user_details/user_details_controller.dart';
 import 'package:provider/provider.dart';
 
-import '../../constants/sizedbox_color_etc.dart';
+import '../../constants/sizedbox_padding_etc.dart';
 
 class UserDetailsScreen extends StatelessWidget {
   const UserDetailsScreen({Key? key}) : super(key: key);
@@ -66,7 +67,7 @@ class UserDetailsScreen extends StatelessWidget {
                 height: 50.h,
               ),
               TextButton(
-                onPressed: ()=>provider.goToHome(context),
+                onPressed: () => provider.goToHome(context),
                 child: TextsStyles(
                   name: 'Next',
                   fontSize: 20.sp,

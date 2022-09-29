@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:project/constants/text_widget.dart';
 import 'package:project/controllers/settings/settings_controller.dart';
-import 'package:project/constants/sizedbox_color_etc.dart';
 import 'package:project/view/settings_screen/widgets/settings_item.dart';
 import 'package:project/controllers/reminder/reminder.dart';
 import 'package:provider/provider.dart';

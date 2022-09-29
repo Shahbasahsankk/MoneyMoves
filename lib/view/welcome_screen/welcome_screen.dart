@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:project/constants/sizedbox_color_etc.dart';
 import 'package:project/controllers/welcome/welcome_controllers.dart';
 import 'package:project/helpers/welcome_helper.dart';
 import 'package:provider/provider.dart';
+
+import '../../constants/sizedbox_padding_etc.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key? key}) : super(key: key);

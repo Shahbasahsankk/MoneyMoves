@@ -1,11 +1,12 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:project/constants/text_widget.dart';
 import 'package:project/controllers/splash/splash_controllers.dart';
 import 'package:project/helpers/splash_helper.dart';
 import 'package:provider/provider.dart';
 
-import '../../constants/sizedbox_color_etc.dart';
+import '../../constants/sizedbox_padding_etc.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../constants/sizedbox_color_etc.dart';
+import '../../../constants/text_widget.dart';
 
 class CategoryTabs extends StatelessWidget {
   const CategoryTabs({

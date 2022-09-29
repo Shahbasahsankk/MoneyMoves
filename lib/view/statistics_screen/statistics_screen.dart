@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:project/controllers/home/home_controllers.dart';
-import 'package:project/constants/sizedbox_color_etc.dart';
 import 'package:project/controllers/statistics/statistics_controller.dart';
 import 'package:project/view/statistics_screen/widgets/income_expense_tabview.dart';
 import 'package:project/view/statistics_screen/widgets/tab_views.dart';
 import 'package:project/view/statistics_screen/widgets/tabs.dart';
 import 'package:provider/provider.dart';
 
+import '../../constants/sizedbox_padding_etc.dart';
 import '../../controllers/navigation/sidebar_controller.dart';
 import '../sidabar_menu/sidebar_drawer.dart';
 

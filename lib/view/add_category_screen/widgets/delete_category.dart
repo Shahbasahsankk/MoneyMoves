@@ -13,10 +13,7 @@ class BottomDeleteCategory extends StatelessWidget {
       height: 50.h,
       child: Center(
         child: TextButton(
-          onPressed: () async {
-            Navigator.pop(context);
-            await provider.deleteDailogue(context, keyy);
-          },
+          onPressed: () => provider.deleteDailogue(context, keyy),
           child: const Icon(
             Icons.delete_forever_rounded,
             color: Colors.red,

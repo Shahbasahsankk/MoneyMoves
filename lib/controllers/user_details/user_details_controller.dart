@@ -7,7 +7,7 @@ class UserDetailsProvider with ChangeNotifier {
   final TextEditingController nameController = TextEditingController();
   final RegExp reg =
       RegExp(r'''[ +×÷=/_€£¥₩;'`~\°•○●□■♤♡◇♧☆▪︎¤《》¡¿!@#$%^&*(),.?":{}|<>]''');
-      
+
   String? validation(value) {
     if (value == null || value.isEmpty) {
       return "Fill Your Name";
@@ -22,7 +22,7 @@ class UserDetailsProvider with ChangeNotifier {
     }
   }
 
-  goToHome(context) async {
+  void goToHome(context) async {
     if (formkey.currentState!.validate()) {
       final sharefprefs = await SharedPreferences.getInstance();
       sharefprefs.setString('username', nameController.text);

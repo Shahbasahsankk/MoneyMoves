@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:project/controllers/add_category/add_category_controller.dart';
 import 'package:provider/provider.dart';
 
-import '../../../constants/sizedbox_color_etc.dart';
+import '../../../constants/text_widget.dart';
 
 class CategoryTabViews extends StatelessWidget {
   const CategoryTabViews({super.key, required this.list});
@@ -48,7 +48,7 @@ class CategoryTabViews extends StatelessWidget {
               ),
               itemBuilder: (context, index) {
                 return GestureDetector(
-                  onTap: () async => await provider.bottomDeleteShow(
+                  onTap: () => provider.bottomDeleteShow(
                     provider.modelList[index].id,
                     context,
                   ),

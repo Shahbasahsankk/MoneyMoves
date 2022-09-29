@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../../constants/sizedbox_color_etc.dart';
+import 'package:project/constants/text_widget.dart';
 
 class StatisticsTab extends StatelessWidget {
   const StatisticsTab({super.key, required this.tabController});

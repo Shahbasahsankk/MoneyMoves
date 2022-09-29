@@ -9,8 +9,10 @@ class StatisticsProvider with ChangeNotifier {
   List<TransactionModel> expenseData = [];
   List<TransactionModel> founData = [];
 
-  loadData(List<TransactionModel> allList, List<TransactionModel> incomeList,
-      List<TransactionModel> expenseList) {
+  Future<void> loadData(
+      List<TransactionModel> allList,
+      List<TransactionModel> incomeList,
+      List<TransactionModel> expenseList) async {
     allData = allList;
     incomeData = incomeList;
     expenseData = expenseList;

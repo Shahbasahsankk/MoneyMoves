@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../../constants/sizedbox_color_etc.dart';
+import '../../constants/snackbar.dart';
 import '../../db/category_db/category_db.dart';
 import '../../db/transaction_db/transaction_db.dart';
 import '../../models/action_type_enum/action_type_enum_model.dart';
@@ -23,7 +23,7 @@ class AddTransactionProvider with ChangeNotifier {
   final formkey2 = GlobalKey<FormState>();
   final formkey1 = GlobalKey<FormState>();
 
-  screenCheck(type, TransactionModel? model) {
+  void screenCheck(type, TransactionModel? model) {
     if (type == ActionType.editScreen) {
       currentSelectedCategory = null;
       dateController.text = DateFormat('yMMMMd').format(model!.date);
@@ -37,7 +37,7 @@ class AddTransactionProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  newTransaction(newTransaction, type) {
+  Future<void> newTransaction(newTransaction, type) async {
     transactionType = newTransaction;
     currentSelectedCategory = null;
     type == ActionType.editScreen
@@ -46,7 +46,7 @@ class AddTransactionProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  categoryValidation(String? value, type) {
+  String? categoryValidation(String? value, type) {
     if ((value == null || value.isEmpty) && type == ActionType.addScreen) {
       return 'Category Type Not Selected';
     } else if (hint == "Select Category" && type == ActionType.editScreen) {
@@ -56,7 +56,7 @@ class AddTransactionProvider with ChangeNotifier {
     }
   }
 
-  amountValidation(String? value) {
+  String? amountValidation(String? value) {
     if (value == null || value.isEmpty) {
       return 'Enter An Amount';
     } else {
@@ -64,7 +64,7 @@ class AddTransactionProvider with ChangeNotifier {
     }
   }
 
-  dateValidation(String? value) {
+  String? dateValidation(String? value) {
     if (value == null || value.isEmpty) {
       return 'Date Not Selected';
     } else {
@@ -72,7 +72,7 @@ class AddTransactionProvider with ChangeNotifier {
     }
   }
 
-  datePick(context) async {
+  void datePick(context) async {
     pickedDate = await showDatePicker(
       context: context,
       initialDate: date,
@@ -85,7 +85,7 @@ class AddTransactionProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  transactionAddOrUpdate(type, TransactionModel? model, context) async {
+  void transactionAddOrUpdate(type, TransactionModel? model, context) async {
     if (currentSelectedCategory == null && type == ActionType.editScreen) {
       name = model!.categoryType;
     } else if (currentSelectedCategory != null &&
@@ -121,7 +121,7 @@ class AddTransactionProvider with ChangeNotifier {
     }
   }
 
-  addCategory(context) async {
+  Future<void> addCategory(context) async {
     showDialog(
       context: context,
       builder: (context) {
@@ -130,7 +130,7 @@ class AddTransactionProvider with ChangeNotifier {
     );
   }
 
-  newCategoryValidation(value, List<CategoryModel> incomeModelList,
+  String? newCategoryValidation(value, List<CategoryModel> incomeModelList,
       List<CategoryModel> expenseModelList, String text) {
     if (value == '' || value == null) {
       return 'Not Filled';
@@ -148,12 +148,11 @@ class AddTransactionProvider with ChangeNotifier {
       if (expense.contains(text.trim().toLowerCase())) {
         return 'Category Already Exists';
       }
-    } else {
-      return null;
     }
+    return null;
   }
 
-  newCategoryAdding(
+  Future<void> newCategoryAdding(
     context,
     text,
     TextEditingController categoryController,

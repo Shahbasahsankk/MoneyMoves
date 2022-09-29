@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../constants/sizedbox_color_etc.dart';
+import '../../constants/snackbar.dart';
 import '../../db/category_db/category_db.dart';
 import '../../models/category_model/category_model.dart';
 import '../../view/add_category_screen/widgets/add_category.dart';
@@ -13,12 +13,13 @@ class AddCategoryProvider with ChangeNotifier {
   final List<CategoryModel> incomeModelList = [];
   final List<CategoryModel> expenseModelList = [];
   List<CategoryModel> modelList = [];
-  refresh(context) async {
+
+  Future<void> refresh(context) async {
     await CategoryDbFunction().refreshUI(context);
     notifyListeners();
   }
 
-  bottomDeleteShow(String key, context) {
+  void bottomDeleteShow(String key, context) {
     showModalBottomSheet(
       context: context,
       shape: RoundedRectangleBorder(
@@ -32,7 +33,8 @@ class AddCategoryProvider with ChangeNotifier {
     );
   }
 
-  deleteDailogue(context, key) {
+  void deleteDailogue(context, key) {
+    Navigator.pop(context);
     showDialog(
       context: context,
       builder: (ctx) {
@@ -41,7 +43,7 @@ class AddCategoryProvider with ChangeNotifier {
     );
   }
 
-  deleteCategory(context, keyy) async {
+  Future<void> deleteCategory(context, keyy) async {
     await CategoryDbFunction.instance.deleteCategory(keyy, context);
     Navigator.pop(context);
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
@@ -51,7 +53,7 @@ class AddCategoryProvider with ChangeNotifier {
     refresh(context);
   }
 
-  categoryShow(context, formkey, tabController) {
+  void categoryShow(context, formkey, tabController) {
     showDialog(
       context: context,
       builder: (context) {
@@ -63,7 +65,7 @@ class AddCategoryProvider with ChangeNotifier {
     );
   }
 
-  addCategoryValidation(tabController, value) {
+  String? addCategoryValidation(tabController, value) {
     if (tabController.index == 0) {
       final income =
           incomeModelList.map((e) => e.name.trim().toLowerCase()).toList();
@@ -85,7 +87,7 @@ class AddCategoryProvider with ChangeNotifier {
     }
   }
 
-  categoryAdded(currentState, tabController, context) async {
+  Future<void> categoryAdded(currentState, tabController, context) async {
     if (currentState.validate()) {
       final category = CategoryModel(
         id: DateTime.now().microsecondsSinceEpoch.toString(),
@@ -104,7 +106,7 @@ class AddCategoryProvider with ChangeNotifier {
     }
   }
 
-  modelListChecking(dynamic list) {
+  void modelListChecking(dynamic list) {
     if (list == incomeModelList) {
       modelList = incomeModelList;
     } else {

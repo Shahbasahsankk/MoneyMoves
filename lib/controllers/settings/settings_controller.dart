@@ -10,7 +10,7 @@ import 'package:project/view/settings_screen/widgets/delete_dailogue.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../constants/sizedbox_color_etc.dart';
+import '../../constants/snackbar.dart';
 import '../../db/category_db/category_db.dart';
 import '../../db/transaction_db/transaction_db.dart';
 import '../../models/category_model/category_model.dart';
@@ -53,7 +53,7 @@ class SettingsProvider with ChangeNotifier {
     }
   }
 
-  timePicker(context) async {
+  void timePicker(context) async {
     TimeOfDay? pickTime =
         await showTimePicker(context: context, initialTime: dateTime);
     if (pickTime != null) {
@@ -68,7 +68,7 @@ class SettingsProvider with ChangeNotifier {
     }
   }
 
-  notificationCancel(context) async {
+  void notificationCancel(context) async {
     Navigator.pop(context);
     isSwitched = false;
     timeController.clear();
@@ -76,7 +76,7 @@ class SettingsProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  notificationSetter(currentState, context) async {
+  void notificationSetter(currentState, context) async {
     if (currentState.validate()) {
       final sharefprefs = await SharedPreferences.getInstance();
       sharefprefs.setBool('switch', true);
@@ -108,7 +108,7 @@ class SettingsProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  launchEmail() async {
+  void launchEmail() async {
     String urls = 'mailto:shabum18m@gmail.com';
     final parseurl = Uri.parse(urls);
     try {
@@ -120,7 +120,7 @@ class SettingsProvider with ChangeNotifier {
     }
   }
 
-  launchGithub() async {
+  void launchGithub() async {
     String urls = 'https://github.com/Shahbasahsankk';
     final parseurl = Uri.parse(urls);
     try {
@@ -143,7 +143,7 @@ class SettingsProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  deleteTransaction(context) async {
+  void deleteTransaction(context) async {
     final transactionDB = await Hive.openBox<TransactionModel>(
         TransactionDbFunction.transactionDbName);
     transactionDB.clear();
@@ -151,7 +151,7 @@ class SettingsProvider with ChangeNotifier {
     Navigator.pop(context);
   }
 
-  resetApp(BuildContext context) async {
+  void resetApp(BuildContext context) async {
     final categoryDB =
         await Hive.openBox<CategoryModel>(CategoryDbFunction.categoryDbName);
     categoryDB.clear();
@@ -172,7 +172,7 @@ class SettingsProvider with ChangeNotifier {
         (route) => false);
   }
 
-  settingsScreenDelete(String text1, String text2, context) {
+  void settingsScreenDelete(String text1, String text2, context) {
     showDialog(
       context: context,
       builder: (ctx) {
@@ -181,7 +181,7 @@ class SettingsProvider with ChangeNotifier {
     );
   }
 
-  appInfo(context) {
+  void appInfo(context) {
     showDialog(
       context: context,
       builder: (context) {

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:project/constants/text_widget.dart';
 import 'package:project/controllers/statistics/statistics_controller.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-import '../../../constants/sizedbox_color_etc.dart';
 import '../../../models/statistics/chart_model.dart';
 import '../../../models/transaction_model/transaction_model.dart';
 

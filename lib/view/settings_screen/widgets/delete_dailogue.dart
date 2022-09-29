@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:project/constants/snackbar.dart';
 import 'package:provider/provider.dart';
 
-import '../../../constants/sizedbox_color_etc.dart';
 import '../../../controllers/settings/settings_controller.dart';
 
 class DeleteDailogue extends StatelessWidget {
@@ -36,9 +36,7 @@ class DeleteDailogue extends StatelessWidget {
           child: const Text('Yes'),
         ),
         TextButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
+          onPressed: () => Navigator.pop(context),
           child: const Text('No'),
         )
       ],

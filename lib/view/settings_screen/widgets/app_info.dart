@@ -5,7 +5,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:project/controllers/settings/settings_controller.dart';
 import 'package:provider/provider.dart';
 
-import '../../../constants/sizedbox_color_etc.dart';
+import '../../../constants/sizedbox_padding_etc.dart';
+import '../../../constants/text_widget.dart';
 
 class AppInfo extends StatelessWidget {
   const AppInfo({super.key});
@@ -41,9 +42,7 @@ class AppInfo extends StatelessWidget {
             fontSize: 14.sp,
           ),
           TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
+            onPressed: () => Navigator.pop(context),
             child: IconButton(
               onPressed: () => provider.launchGithub(),
               icon: const FaIcon(

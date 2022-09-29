@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:project/constants/sizedbox_color_etc.dart';
 
+import '../../../constants/sizedbox_padding_etc.dart';
 import '../../../controllers/add_category/add_category_controller.dart';
 import '../../../controllers/add_transaction/add_transaction_controller.dart';
 import '../../../models/action_type_enum/action_type_enum_model.dart';

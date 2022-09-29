@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:project/controllers/add_category/add_category_controller.dart';
 import 'package:project/controllers/navigation/sidebar_controller.dart';
-import 'package:project/constants/sizedbox_color_etc.dart';
 import 'package:project/view/add_category_screen/widgets/category_tabs.dart';
 import 'package:project/view/add_category_screen/widgets/category_tabviews.dart';
 import 'package:provider/provider.dart';
 
+import '../../constants/sizedbox_padding_etc.dart';
 import '../sidabar_menu/sidebar_drawer.dart';
 
 // ignore: must_be_immutable

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:project/constants/text_widget.dart';
 import 'package:project/controllers/add_category/add_category_controller.dart';
 import 'package:project/controllers/add_transaction/add_transaction_controller.dart';
 import 'package:project/models/transaction_model/transaction_model.dart';
-import 'package:project/constants/sizedbox_color_etc.dart';
 import 'package:project/view/add_transaction_screen/widgets/add_or_edit_textformfeild.dart';
 import 'package:project/view/add_transaction_screen/widgets/category_type_dropdown.dart';
 import 'package:project/view/add_transaction_screen/widgets/transaction_type_dropdown.dart';
 import 'package:provider/provider.dart';
 
+import '../../constants/sizedbox_padding_etc.dart';
 import '../../models/action_type_enum/action_type_enum_model.dart';
 
 // ignore: must_be_immutable
