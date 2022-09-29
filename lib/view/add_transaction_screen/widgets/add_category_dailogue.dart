@@ -58,6 +58,7 @@ class CategoryAdd extends StatelessWidget {
                   categoryProvider.categoryController.text,
                   categoryProvider.categoryController,
                 );
+                // ignore: use_build_context_synchronously
                 await categoryProvider.refresh(context);
               },
               child: const Text('Add'),

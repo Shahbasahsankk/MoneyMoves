@@ -32,8 +32,6 @@ class AddTransactionProvider with ChangeNotifier {
       hint = model.categoryType;
     } else {
       currentSelectedCategory = null;
-      dateController.clear();
-      amountController.clear();
       transactionType = 'Income';
     }
     notifyListeners();
@@ -109,7 +107,6 @@ class AddTransactionProvider with ChangeNotifier {
       } else {
         model!.updateTransaction(transaction);
       }
-
       ScaffoldMessenger.of(context).showSnackBar(
         customSnackBar(type == ActionType.addScreen
             ? 'Transaction Added'

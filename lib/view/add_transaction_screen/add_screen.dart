@@ -25,6 +25,8 @@ class AddScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider =
         Provider.of<AddTransactionProvider>(context, listen: false);
+    provider.amountController.clear();
+    provider.dateController.clear();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       provider.screenCheck(type, model);
     });
@@ -77,15 +79,17 @@ class AddScreen extends StatelessWidget {
                     keyboardType: TextInputType.number,
                   );
                 }),
-                AddDetails(
-                  validator: (value) => provider.dateValidation(value),
-                  readonly: true,
-                  controller: provider.dateController,
-                  hintText: 'Select Date',
-                  color: Colors.black,
-                  iconData: Icons.date_range_outlined,
-                  ontap: () => provider.datePick(context),
-                ),
+                Consumer<AddTransactionProvider>(builder: (context, values, _) {
+                  return AddDetails(
+                    validator: (value) => values.dateValidation(value),
+                    readonly: true,
+                    controller: values.dateController,
+                    hintText: 'Select Date',
+                    color: Colors.black,
+                    iconData: Icons.date_range_outlined,
+                    ontap: () => values.datePick(context),
+                  );
+                }),
                 sizedboxH30,
                 Center(
                   child: ElevatedButton(
